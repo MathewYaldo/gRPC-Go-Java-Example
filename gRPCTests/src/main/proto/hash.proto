@@ -1,0 +1,16 @@
+// We'll use v3 of protobuf in this guide
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "org.example";
+
+service Hash {
+  rpc GetHash (HashRequest) returns (HashResponse);
+}
+
+message HashRequest {
+  string msg = 1;
+}
+
+message HashResponse {
+  string hash = 1;
+}

@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version '0.9.5'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+// Note: for IntelliJ IDE to mark the generated files as source.
+sourceSets {
+    src {
+        main {
+            java {
+                srcDirs 'build/generated/sources/proto/main/grpc'
+                srcDirs 'build/generated/sources/proto/main/java'
+            }
+        }
+    }
+}
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.5"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.73.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "org.example.Main"
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    runtimeOnly 'io.grpc:grpc-netty-shaded:1.73.0'
+    implementation 'io.grpc:grpc-protobuf:1.73.0'
+    implementation 'io.grpc:grpc-stub:1.73.0'
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('fatJar', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest.from jar.manifest
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
