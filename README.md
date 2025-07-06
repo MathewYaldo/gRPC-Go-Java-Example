@@ -43,7 +43,7 @@ See the repo files for a full example along with the code for starting up the gR
 See example Go code for how to send the request.
 
 
-## How to build and run
+## How to build and run demo projects
 
 For Java, run `./gradlew fatJar` and `java -jar build/libs/gRPCTests-1.0-SNAPSHOT.jar`
 
