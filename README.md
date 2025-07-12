@@ -11,7 +11,7 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 ## Part 1 - Java project configuration
 1. Create a new Java project using Gradle (maven works too)
-2. Visit https://github.com/grpc/grpc-java and add the ***non-Android*** dependencies to your build.gradle file.
+2. Visit https://github.com/grpc/grpc-java and add the ***non-Android*** dependencies displayed in the README to your build.gradle file.
 3. Add the ***non-Android*** `protobuf-gradle-plugin`  plugin declaration along with the Protobuf block.
 4. In the `src/main` directory, create a new directory called `Proto` and add all .proto files here. Note that the files must be in this exact location.
 5. Ensure that the .proto files have  `option java_multiple_files = true;`  and `option java_package = "org.example";` Replace `org.example` with the Java package that will be using the service
@@ -43,7 +43,7 @@ See the repo files for a full example along with the code for starting up the gR
 See example Go code for how to send the request.
 
 
-## How to build and run
+## How to build and run demo projects
 
 For Java, run `./gradlew fatJar` and `java -jar build/libs/gRPCTests-1.0-SNAPSHOT.jar`
 
