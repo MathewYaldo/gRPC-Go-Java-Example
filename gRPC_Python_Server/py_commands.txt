@@ -1,0 +1,12 @@
+Libraries to install:
+python -m pip install grpcio (prepend with sudo to install system wide)
+python -m pip install grpcio-tools
+
+
+
+Example command for generating grpc files:
+python -m grpc_tools.protoc -I../../protos --python_out=. --pyi_out=. --grpc_python_out=. ../../protos/helloworld.proto
+
+
+Command for this project:
+python -m grpc_tools.protoc -I./protos --python_out=. --pyi_out=. --grpc_python_out=. ./protos/hash.proto
